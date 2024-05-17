@@ -10,32 +10,26 @@ const FULL_HEART = '♥'
 
 document.addEventListener('DOMContentLoaded', function() {
 
-
   const mediaPost = document.querySelectorAll('.media-post')
-  // console.log(mediaPost)
-
-  // const heartBtn = document.querySelectorAll('.like-glyph')
-  // // console.log(heartBtn)
-  // for(let item of heartBtn) {
-  //   item.addEventListener('click', () => {
-  //     mimicServerCall()
-  //     .then(handleResolve)
-  //     .catch(handleError)
-  //   })
-  // }
-
   let span = document.querySelectorAll('span.like-glyph')
+
   span.forEach(item => {
-    item.addEventListener('click', () => {
+    item.addEventListener('click', (e) => {
       mimicServerCall()
-      .then(handleResolve)
+      .then(handleResolve(e.target))
       .catch(handleError)
     })
   })
 
-  function handleResolve(resolve){
-    console.log(resolve)
-    }
+  function handleResolve(span){
+      span.innerHTML = FULL_HEART;
+      span.classList.add('activated-heart'); 
+
+      span.addEventListener('click', (e) => {
+        span.innerHTML.toggle = EMPTY_HEART
+        span.classList.toggle('activated-heart')
+      })
+  }
 
   let modal = document.getElementById('modal')
   let modalMessage = document.getElementById('modal-message')
@@ -43,15 +37,15 @@ document.addEventListener('DOMContentLoaded', function() {
   function handleError(reject) {
     modal.classList.remove('hidden')
     modalMessage.innerHTML = reject
+
+    setTimeout(() => {
+      modal.classList.add('hidden')
+    }, 3000);
   }
-
-
-  
 
 });
 
 
-// heartBtn.addEventListener('click', console.log('liked'))
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
 //------------------------------------------------------------------------------
