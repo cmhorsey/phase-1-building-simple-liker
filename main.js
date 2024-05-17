@@ -9,7 +9,7 @@ const FULL_HEART = '♥'
 // Console.log based on server function response
 
 document.addEventListener('DOMContentLoaded', function() {
-
+//CLEAN THIS MESS UP
   const mediaPost = document.querySelectorAll('.media-post')
   let span = document.querySelectorAll('span.like-glyph')
 
