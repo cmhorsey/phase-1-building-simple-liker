@@ -3,36 +3,28 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
-
-// Test server function
-// Create click event for heart button
-// Console.log based on server function response
-
 document.addEventListener('DOMContentLoaded', function() {
-//CLEAN THIS MESS UP
-  const mediaPost = document.querySelectorAll('.media-post')
   let span = document.querySelectorAll('span.like-glyph')
+  let modal = document.getElementById('modal')
+  let modalMessage = document.getElementById('modal-message')
 
-  span.forEach(item => {
-    item.addEventListener('click', (e) => {
+  span.forEach(span => {
+    span.addEventListener('click', (e) => {
       mimicServerCall()
-      .then(handleResolve(e.target))
+      .then(() => handleResolve(e.target))
       .catch(handleError)
     })
   })
 
   function handleResolve(span){
-      span.innerHTML = FULL_HEART;
-      span.classList.add('activated-heart'); 
-
-      span.addEventListener('click', (e) => {
-        span.innerHTML.toggle = EMPTY_HEART
-        span.classList.toggle('activated-heart')
-      })
+      if(span.innerHTML === EMPTY_HEART){
+        span.innerHTML = FULL_HEART;
+        span.classList.add('activated-heart');
+      } else {
+          span.innerHTML = EMPTY_HEART;
+          span.classList.remove('activated-heart');
+      }
   }
-
-  let modal = document.getElementById('modal')
-  let modalMessage = document.getElementById('modal-message')
 
   function handleError(reject) {
     modal.classList.remove('hidden')
@@ -42,10 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
       modal.classList.add('hidden')
     }, 3000);
   }
-
 });
-
-
 //------------------------------------------------------------------------------
 // Don't change the code below: this function mocks the server response
 //------------------------------------------------------------------------------
